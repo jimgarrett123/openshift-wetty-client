@@ -20,6 +20,7 @@ ENV NODEJS_VERSION=10 \
     WETTY_NUMBER_OF_USERS=60 \
     WETTY_USERNAME_PREFIX=user \
     WETTY_PASSWORD_PREFIX=password \
+    WETTY_PASSWORD=r3dh4t1! \
     OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-4} \
     OC_VERSION=${OC_VERSION:-4.3.5-202003041047.git.0.af13baf.el7} \
     ODO_VERSION=${ODO_VERSION:-1.0.0}
@@ -52,7 +53,8 @@ RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
 
 # To modify default users, update the WETTY_* environment variables above
 # and automate the OpenShift cluster oc login
-RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login -u \$(whoami) -p password\$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)" >> /home/${WETTY_USERNAME_PREFIX}$i/.bashrc; done
+# RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login -u \$(whoami) -p password\$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)" >> /home/${WETTY_USERNAME_PREFIX}$i/.bashrc; done
+RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login -u \$(whoami) -p password\$(WETTY_PASSWORD)" >> /home/${WETTY_USERNAME_PREFIX}$i/.bashrc; done
 
 RUN npm i -g wetty --unsafe-perm=true --allow-root
 #ADD wetty.conf .
