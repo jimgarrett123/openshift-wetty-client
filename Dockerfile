@@ -21,7 +21,7 @@ ENV NODEJS_VERSION=10 \
     WETTY_USERNAME_PREFIX=user \
     WETTY_PASSWORD_PREFIX=password \
     OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-4} \
-    OC_VERSION=${OC_VERSION:-3.5-202003041047.git.0.af13baf.el7} \
+    OC_VERSION=${OC_VERSION:-4.3.5-202003041047.git.0.af13baf.el7} \
     ODO_VERSION=${ODO_VERSION:-1.0.0}
 
 # Not sure why I have to do this but without it
