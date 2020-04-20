@@ -48,7 +48,7 @@ RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
 
-RUN systemctl enable sshd.service
+#RUN systemctl enable sshd.service
 
 # To modify default users, update the WETTY_* environment variables above
 # and automate the OpenShift cluster oc login
