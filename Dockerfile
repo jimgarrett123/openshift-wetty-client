@@ -20,8 +20,8 @@ ENV NODEJS_VERSION=10 \
     WETTY_NUMBER_OF_USERS=60 \
     WETTY_USERNAME_PREFIX=user \
     WETTY_PASSWORD_PREFIX=password \
-    OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-3} \
-    OC_VERSION=${OC_VERSION:-3.11.157} \
+    OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-4} \
+    OC_VERSION=${OC_VERSION:-3.5-202003041047.git.0.af13baf.el7} \
     ODO_VERSION=${ODO_VERSION:-1.0.0}
 
 # Not sure why I have to do this but without it
@@ -41,13 +41,13 @@ RUN if [ $OC_MAJOR_VERSION == 4 ]; then curl -sLo /usr/local/bin/odo  https://mi
 # Enable EPEL repositories
 RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; \
     rpm -Uvh epel-release*rpm
-        
+
 RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install openssh-server sshpass && \
     rm -rf /var/cache/yum
 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
     ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
-    
+
 RUN systemctl enable sshd.service
 
 # To modify default users, update the WETTY_* environment variables above
